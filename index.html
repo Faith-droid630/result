@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akumbom Faith Wihkochombom — Academic Transcript</title>
+  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Plus+Jakarta+Sans:wght@300;400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0e0b1a;
+      --surface: #16102b;
+      --card: #1e1638;
+      --violet: #9b6dff;
+      --violet-glow: #9b6dff22;
+      --rose: #ff6eb4;
+      --rose-glow: #ff6eb422;
+      --teal: #5dffd3;
+      --text: #ede9f8;
+      --muted: #7a6e99;
+      --border: #2a1f4a;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── AURORA BACKGROUND ── */
+    .aurora {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.25;
+    }
+
+    .aurora-blob.a {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, #9b6dff, transparent 70%);
+      top: -200px; left: -200px;
+      animation: drift1 12s ease-in-out infinite;
+    }
+
+    .aurora-blob.b {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, #ff6eb4, transparent 70%);
+      top: 100px; right: -100px;
+      animation: drift2 10s ease-in-out infinite;
+    }
+
+    .aurora-blob.c {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #5dffd3, transparent 70%);
+      bottom: -100px; left: 40%;
+      animation: drift3 14s ease-in-out infinite;
+    }
+
+    @keyframes drift1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 40px) scale(1.1); }
+    }
+    @keyframes drift2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-40px, 60px) scale(0.95); }
+    }
+    @keyframes drift3 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -50px) scale(1.05); }
+    }
+
+    /* ── PAGE ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 36px 80px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      animation: fadeIn 0.6s ease both;
+    }
+
+    .nav-logo {
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      color: var(--violet);
+      letter-spacing: 0.1em;
+    }
+
+    .nav-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pill {
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-family: 'Fira Code', monospace;
+      letter-spacing: 0.08em;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .pill.active {
+      background: var(--violet-glow);
+      border-color: var(--violet);
+      color: var(--violet);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 0 56px;
+      animation: fadeIn 0.6s 0.1s ease both;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .eyebrow-line {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--violet), var(--rose));
+      border-radius: 2px;
+    }
+
+    .eyebrow-text {
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .name-wrap {
+      margin-bottom: 32px;
+    }
+
+    .name-top {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(42px, 7vw, 80px);
+      line-height: 1;
+      color: var(--text);
+      display: block;
+    }
+
+    .name-faith {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(52px, 9vw, 104px);
+      line-height: 0.9;
+      background: linear-gradient(135deg, var(--violet), var(--rose) 60%, var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
+
+    .name-bottom {
+      font-family: 'Gilda Display', serif;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.1;
+      color: var(--muted);
+      display: block;
+      font-style: italic;
+    }
+
+    /* ── CHIPS ── */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 56px;
+      animation: fadeIn 0.6s 0.2s ease both;
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      font-size: 13px;
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+
+    .chip:hover { border-color: var(--violet); }
+
+    .chip-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .chip-dot.violet { background: var(--violet); }
+    .chip-dot.rose   { background: var(--rose); }
+    .chip-dot.teal   { background: var(--teal); }
+    .chip-dot.white  { background: #fff; opacity: 0.4; }
+
+    /* ── TRANSCRIPT CARD ── */
+    .card-wrap {
+      animation: fadeIn 0.6s 0.3s ease both;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .card-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
+      color: var(--teal);
+    }
+
+    .status-ring {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: 2px solid var(--teal);
+      position: relative;
+    }
+
+    .status-ring::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: ping 2s ease-in-out infinite;
+    }
+
+    @keyframes ping {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.6); }
+    }
+
+    .transcript-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* gradient border effect */
+    .transcript-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--violet), var(--rose), var(--teal));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .transcript-card img {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+      max-height: 76vh;
+      border-radius: 20px;
+    }
+
+    .placeholder {
+      padding: 100px 32px;
+      text-align: center;
+    }
+
+    .placeholder-orb {
+      width: 80px; height: 80px;
+      margin: 0 auto 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--violet-glow), var(--rose-glow));
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+
+    .placeholder h3 {
+      font-family: 'Gilda Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .placeholder p {
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 2.2;
+    }
+
+    .placeholder code { color: var(--violet); }
+
+    /* ── ACTIONS ── */
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      animation: fadeIn 0.6s 0.4s ease both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--violet), var(--rose));
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px #9b6dff44;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--violet);
+      color: var(--violet);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 56px;
+      padding: 28px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: fadeIn 0.6s 0.5s ease both;
+    }
+
+    .footer-name {
+      font-family: 'Gilda Display', serif;
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    .footer-meta {
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATION ── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      .page { padding: 0 20px 60px; }
+      .nav-pills { display: none; }
+      .chips { gap: 8px; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- AURORA -->
+  <div class="aurora">
+    <div class="aurora-blob a"></div>
+    <div class="aurora-blob b"></div>
+    <div class="aurora-blob c"></div>
+  </div>
+
+  <div class="page">
+
+    <!-- NAV -->
+    <nav>
+      <span class="nav-logo">akw.transcript</span>
+      <div class="nav-pills">
+        <span class="pill">2025 – 2026</span>
+        <span class="pill active">Semester 01</span>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Official Academic Transcript</span>
+      </div>
+      <div class="name-wrap">
+        <span class="name-top">Akumbom</span>
+        <span class="name-faith">Faith</span>
+        <span class="name-bottom">Wihkochombom</span>
+      </div>
+    </div>
+
+    <!-- CHIPS -->
+    <div class="chips">
+      <div class="chip"><div class="chip-dot violet"></div> HND Software Engineering</div>
+      <div class="chip"><div class="chip-dot rose"></div> HUIB, Buea</div>
+      <div class="chip"><div class="chip-dot teal"></div> First Semester</div>
+      <div class="chip"><div class="chip-dot white"></div> 2025 / 2026</div>
+    </div>
+
+    <!-- TRANSCRIPT CARD -->
+    <div class="card-wrap">
+      <div class="card-header">
+        <span class="card-title">Official Document</span>
+        <div class="card-status">
+          <div class="status-ring"></div>
+          Verified
+        </div>
+      </div>
+
+      <div class="transcript-card">
+        <!--
+          ✅ HOW TO ADD YOUR TRANSCRIPT:
+          1. Name your image file "transcript.jpg" (or .png)
+          2. Place it in the SAME folder as this HTML file
+          3. Replace the placeholder below with:
+             <img src="transcript.jpg" alt="Akumbom Faith Wihkochombom Transcript" />
+        -->
+        <div class="placeholder">
+          <div class="placeholder-orb">📄</div>
+          <h3>Transcript Awaiting</h3>
+          <p>
+            Save your image as <code>transcript.jpg</code><br />
+            Place it in the same folder as this file<br />
+            Then replace this block with:<br /><br />
+            <code>&lt;img src="transcript.jpg" alt="Transcript" /&gt;</code>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <!--
+        ✅ Change href="#" to href="transcript.jpg" once image is added
+      -->
+      <a href="#" class="btn btn-primary" download>↓ &nbsp;Download</a>
+      <a href="#" class="btn btn-ghost" target="_blank">↗ &nbsp;Full View</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <span class="footer-name">Akumbom Faith Wihkochombom</span>
+      <span class="footer-meta">© 2026 · HUIB, Buea</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>
